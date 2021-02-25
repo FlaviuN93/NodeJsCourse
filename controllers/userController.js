@@ -52,6 +52,14 @@ exports.updateMe = catchAsync(async (req, res, next) => {
   });
 });
 
+// exports.deleteMe = catchAsync(async (req, res, next) => {
+//   await User.findByIdAndUpdate(req.user.id, { active: false });
+//   res.status(204).json({
+//     status: 'success',
+//     data: null,
+//   });
+// });
+
 exports.getUser = (req, res) => {
   res.status(500).json({
     status: 'error',
@@ -73,9 +81,17 @@ exports.updateUser = (req, res) => {
   });
 };
 
-exports.deleteUser = (req, res) => {
-  res.status(500).json({
-    status: 'error',
-    message: 'This route is not yet defined!',
+exports.deleteUser = catchAsync(async (req, res, next) => {
+  const user = await User.findByIdAndDelete(req.user.id);
+  if (!user) {
+    return new AppError(
+      `User with ID: ${req.params.id} not found. Try to log in again`
+    );
+  }
+  res.status(204).json({
+    status: 'success',
+    user: null,
   });
-};
+
+  next();
+});
