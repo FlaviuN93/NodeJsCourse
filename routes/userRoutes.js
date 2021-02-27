@@ -15,7 +15,10 @@ const {
   resetPassword,
   updatePassword,
   protect,
+  restrictTo,
 } = require('../controllers/authController');
+
+const { createReview } = require('./../controllers/reviewController');
 
 const router = express.Router();
 
