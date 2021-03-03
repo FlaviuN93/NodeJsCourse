@@ -22,6 +22,9 @@
     "no-return-await": "off",
     "no-underscore-dangle": "off",
     "class-methods-use-this": "off",
+    "parserOptions": {
+        "sourceType": "module"
+      },
     "prefer-destructuring": [
       "error",
       {
