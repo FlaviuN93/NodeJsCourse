@@ -8849,7 +8849,7 @@ var mapbox = document.getElementById('map');
 var loginForm = document.querySelector('.form--login');
 var logoutButton = document.querySelector('.nav__el--logout');
 var userDataForm = document.querySelector('.form-user-data');
-var userPasswordForm = document.querySelector('.'); // Delegation
+var userPasswordForm = document.querySelector('.form-user-password'); // Delegation
 
 if (mapbox) {
   var locations = JSON.parse(mapbox.dataset.locations);
@@ -8944,7 +8944,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55452" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56354" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
