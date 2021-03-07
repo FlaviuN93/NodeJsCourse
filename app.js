@@ -16,6 +16,7 @@ const tourRouter = require('./routes/tourRoutes');
 const userRouter = require('./routes/userRoutes');
 const reviewRouter = require('./routes/reviewRoutes');
 const bookingRouter = require('./routes/bookingRoutes');
+const { webhookCheckout } = require('./controllers/bookingController');
 const viewRouter = require('./routes/viewRoutes');
 
 const app = express();
@@ -26,29 +27,14 @@ app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
 
 // 1) GLOBAL MIDDLEWARES
+//Implementing CORS
+app.use(cors());
+app.options('*', cors());
+
 // Serving static files
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Set security HTTP headers
-// app.use(
-//   helmet.contentSecurityPolicy({
-//     directives: {
-//       defaultSrc: ["'self'", 'https:', 'http:', 'data:', 'ws:'],
-//       baseUri: ["'self'"],
-//       fontSrc: ["'self'", 'https:', 'http:', 'data:'],
-//       scriptSrc: ["'self'", 'https:', 'http:', 'blob:'],
-//       styleSrc: ["'self'", "'unsafe-inline'", 'https:', 'http:'],
-//     },
-//   })
-// );
 app.use(helmet({ contentSecurityPolicy: false }));
-app.use(
-  cors({
-    origin: 'http://127.0.0.1:3000',
-    credentials: true,
-  })
-);
-
 // Development logging
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
@@ -61,6 +47,12 @@ const limiter = rateLimit({
   message: 'Too many requests from this IP, please try again in an hour!',
 });
 app.use('/api', limiter);
+
+app.post(
+  '/webhook-checkout',
+  express.raw({ type: 'application/json' }),
+  webhookCheckout
+);
 
 // Body parser, reading data from body into req.body
 app.use(express.json({ limit: '10kb' }));
