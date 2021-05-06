@@ -44,12 +44,11 @@ exports.signup = catchAsync(async (req, res, next) => {
     passwordConfirm: req.body.passwordConfirm,
   });
 
-  const url = `${req.protocol}://${req.get('host')}/me`;
+  // const url = `${req.protocol}://${req.get('host')}/me`;
 
-  await new Email(newUser, url).sendWelcome();
-  console.log('12345');
+  // await new Email(newUser, url).sendWelcome();
+
   createSendToken(newUser, 201, req, res);
-  console.log('123456');
 });
 
 exports.login = catchAsync(async (req, res, next) => {
@@ -91,7 +90,6 @@ exports.protect = catchAsync(async (req, res, next) => {
   }
 
   if (!token) {
-    console.log('1234567');
     return next(
       new AppError('You are not logged in! Please log in to get access.', 401)
     );
