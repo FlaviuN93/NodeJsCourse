@@ -9,7 +9,6 @@ import { showAlert } from './alerts';
 // DOM ELEMENTS
 const mapBox = document.getElementById('map');
 const signupForm = document.querySelector('.form--signup');
-const signupBtn = document.querySelector('.btn--green');
 const loginForm = document.querySelector('.form--login');
 const logOutBtn = document.querySelector('.nav__el--logout');
 const userDataForm = document.querySelector('.form-user-data');
@@ -31,8 +30,6 @@ if (signupForm)
     const passwordConfirm = document.getElementById('password-confirm').value;
     signup(name, email, password, passwordConfirm);
   });
-
-if (signupBtn) signupBtn.addEventListener('click', signup);
 
 if (loginForm)
   loginForm.addEventListener('submit', (e) => {
